@@ -1,0 +1,17 @@
+
+<p>genre一覧</p>
+
+
+<%= link_to "artists一覧へ", user_artists_path %>
+
+<%= link_to "item一覧へ", user_items_path %>
+
+
+<%# # test.id=1 %>
+<p><%= link_to '洋楽', user_genre_path(id:1) %><p>
+
+<p><%= link_to '邦楽', user_genre_path(id:2) %><p>
+
+<p><%= link_to '韓楽', user_genre_path(id:3) %><p>
+
+<p><%= link_to 'jaz', user_genre_path(id:4) %><p>

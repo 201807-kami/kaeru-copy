@@ -1,0 +1,24 @@
+body, h1, h2, h3, h4, h5, h6, p, span, div, label {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif
+}
+.bg-white {
+    background-color: #fff;
+}
+.app-header.navbar .navbar-brand {
+  width: 155px;
+  height: 55px;
+  padding: 0.5rem 1rem;
+  background-image: image-url('logo.png');
+  background-size: 80px auto;
+}
+a:hover {
+  text-decoration: none;
+}
+label.required:after {
+  content: '*';
+  padding-left: 5px;
+  color: red;
+}
+
+
+

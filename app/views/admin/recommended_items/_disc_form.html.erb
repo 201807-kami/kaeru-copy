@@ -1,0 +1,11 @@
+<div class ="field">
+  <%= f.label :disc_number %><br>
+  <%= f.text_field :disc_number %>
+  <%= f.hidden_field :id %>
+  <%= f.fields_for :songs do |sf| %>
+  	<%= render partial: "song_form", locals: {f: sf } %>
+  <% end %>
+  <%= link_to_add_field("song add", f, :songs, {}) %>
+  <br>
+  <%= link_to_remove_field("disc remove", f, {}) %>
+</div>

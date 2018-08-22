@@ -1,0 +1,16 @@
+<div class="container">
+	<%= form_for @item, url: admin_recommended_item_path(@item) do |f|%>
+		<div class="card">
+			<div class="card-header">
+				<p>商品編集</p>
+			</div>
+			<div class="card-body">
+				<%= render 'form', f: f %>
+				<div class="float-right">
+					<%= f.submit '更新', class: 'btn btn-primary mr-2' %>
+					<%= link_to 'キャンセル', admin_recommended_items_path, class: 'btn btn-light' %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+</div>

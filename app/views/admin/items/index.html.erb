@@ -1,0 +1,116 @@
+<div class="container">
+	<div class="card">
+	  <div class="card-header pt-3">
+	    商品一覧
+	    <%= link_to new_admin_item_path, class: 'btn btn-success btn-sm float-right mb-0' do %>
+	      <i class="fa fa-plus">
+	      新規作成
+	      </i>
+	    <% end %>
+	  </div>
+	  <div class="card-body">
+	    <%= form_for @search_form, as: 'search', url: admin_items_path, method: :get, html: {class: 'form-horizontal', id: 'form_item_search'} do |f| %>
+	      <div class="form-group row">
+	        <%= f.label :title, '商品名', class: 'col-1 col-form-label pr-0' %>
+	        <div class="col-5">
+	          <%= f.text_field :title, class: 'form-control' %>
+	        </div>
+	        <%= f.label :genre_id, 'ジャンル', class: 'col-2 col-form-label pr-0 text-right' %>
+	        <div class="col-4">
+	          <%= f.collection_select(:genre_id, Genre.all, :id, :name, include_blank: true) %>
+	        </div>
+	      </div>
+	      <div class="form-group row">
+	        <%= f.label :stock, '在庫数', class: 'col-1 col-form-label pr-0' %>
+	        <div class="col-3">
+	          <div class="input-group">
+	            <%= f.number_field :stock, class: 'form-control px-1' %>
+	            <span class="input-group-addon" >
+	              <%= f.radio_button :stock_type, :less %>
+	              <%= f.label :stock_type_less, '以下', class: 'form-check-label pl-0 pr-2' %>
+	              <%= f.radio_button :stock_type, :more %>
+	              <%= f.label :stock_type_more, '以上', class: 'form-check-label pl-0' %>
+	            </span>
+	          </div>
+	        </div>
+
+	        <%= f.label :status, 'ステータス', class: 'col-2 col-form-label text-right pr-0' %>
+	        <div class="col-4">
+	          <div class="form-check form-check-inline pt-1">
+	            <label class="form-check-label" for = 'search_status_unpublished'>
+	              <%= f.check_box :status, {multiple: true, class: 'form-check-input'}, '未公開', nil %>
+	              <span class="mr-2">未公開</span>
+	            </label>
+
+	            <label class="form-check-label" for = 'search_statuses_selling'>
+	              <%= f.check_box :status, {multiple: true, class: 'form-check-input'}, '販売中', nil %>
+	              <span class="mr-2">販売中</span>
+	            </label>
+	            <label class="form-check-label" for = 'search_statuses_end_of_sell'>
+	              <%= f.check_box :status, {multiple: true, class: 'form-check-input'}, '販売終了', nil %>
+	              <span class="mr-2">販売終了</span>
+	            </label>
+	          </div>
+	        </div>
+
+	        <div class="col-3 text-right">
+	          <div class="btn-group">
+	            <%= f.submit '検索', class: 'btn btn-primary' %>
+	            <button aria-expanded = 'true' aria-haspopup = 'true' class="btn btn-primary dropdown-toggle" data-toggle='dropdown'   >
+	              <span class="caret"></span>
+	              <span class="sr-only">Toggle Dropdown</span>
+	            </button>
+	            <div class="dropdown-menu">
+	              <a class="dropdown-item" href = '#', onclick = 'search_with_sort("desc")'>登録日が新しい順</a><br>
+	              <a class="dropdown-item" href = '#', onclick = 'search_with_sort("asc")'> 登録日が古い順</a><br>
+	              <a class="dropdown-item" href = '#', onclick = 'search_with_sort("stock_asc")'>在庫が少ない順</a><br>
+	              <a class="dropdown-item" href = '#', onclick = 'search_with_sort("stock_desc")'>在庫が多い順</a><br>
+	            </div>
+	           <%= f.hidden_field :sort_type %>
+	          </div>
+	        </div>
+	      </div>
+	    <% end %>
+	  </div>
+	  <table class="table table-bordered table-sm table-hover">
+	    <thead>
+	      <tr class="table-secondary">
+	        <th class="text-right" style="width: 5%">ID</th>
+	        <th colspan=2 style="width: 35%">商品名</th>
+	        <th style="{width:10%">ステータス</th>
+	        <th class="text-right" style="width: 10%" >価格</th>
+	        <th class="text-right" style="width: 10%" >在庫数</th>
+	        <th style="{width: 10%"></th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <% @items.each do |item| %>
+	        <tr>
+	          <td class="text-right"><%= item.id %></td>
+	          <td><%= attachment_image_tag item, :item_image, :fill, 100, 100 %></td>
+	          <td><%= item.title %></td>
+	          <td><%= item.status %></td>
+	          <td class="text-right"><%= item.price %></td>
+	          <td class="text-right"><%= item.stock %></td>
+	          <td>
+	            <%= link_to '編集', edit_admin_item_path(item) %>
+	            <span class="my-2">/</span>
+	            <%= link_to '削除', admin_item_path(item), method: :delete, data: {confirm: '削除してよろしいでしょうか？'} %>
+	          </td>
+	        </tr>
+	      <% end %>
+	    </tbody>
+	  </table>
+	</div>
+</div>
+
+<%= paginate @items %>
+
+
+
+<script>
+	  function search_with_sort(sort_type) {
+      $('#search_sort_type').val(sort_type);
+      $('#form_item_search').submit();
+    }
+</script> 

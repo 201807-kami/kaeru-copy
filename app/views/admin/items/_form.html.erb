@@ -1,0 +1,24 @@
+<div class ="field">
+  <%= f.label :商品名 %><br>
+  <%= f.text_field :title %><br>
+  <%= f.label :ジャケット画像 %><br>
+  <%= f.attachment_field :item_image %>
+  <%= f.label :アーティスト %><br>
+  <%= f.autocomplete_field :artist_name, autocomplete_artist_name_admin_artists_path %><br>
+  <%= f.label :価格 %><br>
+  <%= f.text_field :price %><br>
+  <%= f.label :レーベル名 %><br>
+  <%= f.autocomplete_field :label_name, autocomplete_label_name_admin_labels_path %><br>
+  <%= f.label :ジャンル %><br>
+  <%= f.collection_select(:genre_id, Genre.all, :id, :name) %><br>
+  <%= f.label :在庫数 %><br>
+  <%= f.text_field :stock %><br>
+  <%= f.label :ステータス %><br>
+  <%= f.select :status, [["未公開", "未公開"],["販売中","販売中"],["販売終了","販売終了"]] %><br>
+  <%= f.label :おすすめ %><br>
+  <%= f.select :recommended, [["なし", nil],["J-pop", 1],["洋楽",2],["K-pop",3],["ジャズ",4]] %><br>
+  <%= f.fields_for :discs do |df| %>
+    <%= render partial: "disc_form", locals: {f: df } %>
+    <% end %>
+  <%= link_to_add_field("disc add", f, :discs, {}) %>
+</div>

@@ -1,0 +1,29 @@
+
+<p><%= @genre.name %>のオススメ一覧<p>
+<% @items.each do |item| %>
+
+
+<table class="table table-bordered table-sm table-hover">
+	<caption></caption>
+	<thead>
+		<tr>
+			<th class="text-center">image</th>
+			<th colspan="2">title</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td width="60"><%= attachment_image_tag item, :item_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.jpg", size:"100x100" %></td>
+			<td><h4><%= item.title %></h4>
+				<p>¥<%= item.price %>(税抜)</p>
+				<p>アーティスト名</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<% end %>
+
+<p><%= link_to "ジャンル一覧ページへ", user_genres_path %><p>
+
+</p>

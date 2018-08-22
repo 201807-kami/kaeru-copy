@@ -1,0 +1,19 @@
+
+
+<div class="container">
+	<%= form_for @label, url: admin_labels_path do |f| %>
+		<div class="card">
+			<div class="card-header">
+				<h2>レーベル情報</h2>
+			</div>
+			<div class="card-body">
+				<%= render 'form', f: f %>
+
+				<div class="float-right">
+					<%= f.submit '登録', class: 'btn btn-primary mr-2'%>
+					<%= link_to 'キャンセル', admin_labels_path, class: 'btn btn-light'%>
+				</div>
+			</div>
+		</div>
+	<% end %>
+</div>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kaeru</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+<body>
+
+
+  <div class="container">
+  <!-- header -->
+
+      <header>
+               <nav class="navbar navbre-default">
+                  <div class="container-fluid">
+                    <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample">
+                                      <span class="sr-only">Toggle navigation</span>
+                                      <span class="icon-bar"></span>
+                                      <span class="icon-bar"></span>
+                                      <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand">kaeru</a>
+                    </div>
+
+                       <div class="collapse navbar-collapse" id="navbarEexample">
+                            <ul class="nav navbar-nav">
+                                          <li><%= form_tag user_items_path, :method => 'get' do %>
+                                              <%= text_field_tag :search, params[:search] %>
+                                              <%= submit_tag "Search", :title => nil %>
+                                              <% end %>
+                                          </li>
+                                          <% if user_signed_in? %>
+                                             <li><%= link_to 'user', user_path(current_user.id), class: "glyphicon glyphicon-user" %></li>
+                                          <% else %>
+                                          <li><%= link_to '新規登録', new_user_registration_path, class: "glyphicon glyphicon-user" %></li>
+                                          <li><%= link_to 'login', user_session_path, class: "glyphicon glyphicon-log-in" %></li>
+                                          <% end %>
+                                          <li><%= link_to 'logout', destroy_user_session_path, method: :delete, class: "glyphicon glyphicon-log-out" %></li>
+                                          <li><%= link_to "お気に入り", user_favorites_path, class: "glyphicon glyphicon-heart" %></li>
+                            </ul>
+                       </div>
+               </nav>
+
+    </header>
+</div>
+<div class="container">
+
+    <div class="row">
+        <!-- left -->
+        <div class="col-md-2">
+            <!-- 囲ってるパネル -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Menu
+                </div>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href=""><i class="glyphicon glyphicon-pencil"></i> submenu1</a></li>
+                    <li><a href=""><i class="glyphicon glyphicon-download"></i> submenu2</a></li>
+                    <li><a href=""><i class="glyphicon glyphicon-leaf"></i> submenu3</a></li>
+                    <li><a href=""><i class="glyphicon glyphicon-folder-open"></i> submenu4</a></li>
+                </ul>
+
+
+            </div>
+        </div>
+        <div class="col-md-10">
+
+      <%= yield %>
+        </div>
+     </div>
+</div>
+               <div class="footer footerc">
+                   <div class="container mt-4">
+                          <div class="text-center">
+                              <ul class="list-inline small">
+                                  <li><i class="fa fa-twitter-square fa-2x"></i></li>
+                                  <li><i class="fa fa-facebook-square fa-2x"></i></li>
+                                  <li><i class="fa fa-instagram fa-2x"></i></li>
+                              </ul>
+                              <ul class="list-inline small">
+                                  <li>お問い合わせ</li>
+                                  <li>メッセージ</li>
+                                  <li>2018 kaeru</li>
+                              </ul>
+                              <div class="my-5">
+                                  <h3>KAERU DEMO SITE</h3>
+                                  <div class="small">Copyright © 2018 KAERU All Rights Reserved"</div>
+                              </div>
+                          </div>
+                   </div>
+                </div>
+
+
+        <!-- footer -->
+
+  </body>
+</html>

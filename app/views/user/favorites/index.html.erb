@@ -1,0 +1,23 @@
+
+  <p>あなたのお気に入り一覧</p>
+
+  <% @favorite.each do |favorite| %>
+  <% item = Item.find(favorite.item_id) %>
+
+  		<table>
+			  <tr>
+				<td>商品id</td>
+			    <td>title</td>
+			    <td>price</td>
+			    <td>発売日</td>
+			  </tr>
+			  <tr>
+				 <td><%= item.id %></td>
+			     <td><%= item.title %></td>
+			     <td><%= item.price %></td>
+			     <td><%= item.release_date %></td>
+			  </tr>
+		</table>
+
+
+  <% end %>

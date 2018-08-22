@@ -1,0 +1,10 @@
+<%= form_for @admin, url: admin_admins_path, method: :post do |f| %>
+	  <div class="card">
+	    <div class="card-header">
+	      管理者情報
+	    <div class="card-body">
+	      <%= render 'form', f: f %>
+	      <div class="float-right">
+	        <%= f.submit '登録', class: 'btn btn-primary mr-2' %>
+	        <%= link_to 'キャンセル', admin_admins_path, class: 'btn btn-light' %>
+	<% end

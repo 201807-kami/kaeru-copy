@@ -1,0 +1,20 @@
+
+<p>商品詳細</p>
+
+<%= link_to "item一覧へ", user_items_path %>
+<%= link_to "カートに入れる", user_cart_item_create_path(@item) %>
+
+
+
+
+  <%= attachment_image_tag @item, :item_image, :fill, 300, 300, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.jpg", size:"300x300" %>
+    <p>商品名<%= @item.title %></p>
+    <p>値段¥<%= @item.price %></p>
+    <p>アーティスト名<%= @item.artist.name %></p>
+    <p><%= @item.genre_id %></p>
+    <p>発売日<%= @item.release_date %></p>
+    <p>品番</p>
+    <p><%= @item.label.name %></p>
+
+</div>
+

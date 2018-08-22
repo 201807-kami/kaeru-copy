@@ -1,0 +1,25 @@
+<h1>レーベル一覧</h1>
+<div class="container">
+	<table class="table table-bordered table-sm table-hover">
+	  <thead>
+	    <tr class="table-secondary">
+	      <th class="text-right" style="width: 5%">ID</th>
+	      <th style="width:10%}">レーベル名</th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @labels.each do |label| %>
+	      <tr>
+	        <td><%= label.id %></td>
+	        <td><%= label.name %></td>
+	        <td>
+	          <%= link_to '編集', edit_admin_label_path(label) %>
+	          <span class="my-2">/</span>
+	          <%= link_to '削除', admin_label_path(label), method: :delete, data: {confirm: '削除してよろしいでしょうか？'} %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>

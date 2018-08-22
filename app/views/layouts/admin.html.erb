@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>kaeru</title>
+		<%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+		<link crossorigin="anonymous", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", rel="stylesheet">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css', rel ="stylesheet">
+	</head>
+	<body>
+		<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+      <header class="app-header navbar">
+        <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto", type = "button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <%= link_to 'はろー', admin_root_path, class: 'navbar-brand' %>
+        <button class="navbar-toggler sidebar-toggler d-md-down-none", type = "button" >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="nav navbar-nav ml-auto mr-3">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle nav-link" aria-expanded = "false", aria-haspopup = "true", data-toggle = "dropdown", :href = "#", :role = "button" >
+              <span class="d-md-down-none">こじま</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <div class="dropdown-header text-center">
+                <strong>アカウント</strong>
+              </div>
+              
+                <i class="fa fa-user">
+                設定変更
+              	</i>
+              
+              
+                <i class="fa fa-sign-out">
+                ログアウト
+              	</i>
+              
+            </div>
+          </li>
+        </ul>
+      </header>
+
+		<%= yield %>
+	</body>
+</html>

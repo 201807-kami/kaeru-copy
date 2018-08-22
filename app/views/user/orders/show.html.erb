@@ -1,0 +1,8 @@
+
+<h1>ご注文内容</h1>
+<p>住所 <%= f.text_area :adress, class:"order_adress" %></p>
+<p> 支払い方法 <%= f.text_area :payment, class:"order_payment" %></p>
+<p> お届け予定日 <%= f.text_area :delivery_date, class:"order_delivery_date" %></p>
+<p> 合計金額 <%= f.text_area :total_price, class:"order_total_price" %></p>
+<p><%= link_to "ショッピングを続ける", user_top_path(book) %></p>
+
