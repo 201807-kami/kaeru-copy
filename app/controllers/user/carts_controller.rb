@@ -7,23 +7,14 @@ class User::CartsController < ApplicationController
   end
 
   def create
-    if Cart.add_item(params[:item_id], current_user)
-
-      redirect_to user_carts_path(current_user)
-    else
-      flash[:error] = 'カートに商品を追加することができませんでした。'
-      redirect_to user_item_path(id: params[:item_id])
-    end
+    Cart.add_item(params[:item_id], current_user)
+    redirect_to user_carts_path(current_user)
   end
 
   def update
-    if @cart.update_quantity(params[:cart][:quantity].to_i)
-      flash[:success] = "#{@cart.item.name} の数量を変更しました。"
-    else
-      flash[:error] = '数量を変更することができません。'
-    end
-
-    redirect_to carts_path
+    @carts = current_user.carts
+    @carts.update
+    redirect_to new_user_order_path
   end
 
   def destroy

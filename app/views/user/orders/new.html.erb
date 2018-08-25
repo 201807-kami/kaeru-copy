@@ -12,8 +12,32 @@
     		<%= f.select(:payment_method, [['選択して下さい', ''],['現金', '現金']]) %>
 		    </div>
 
-        <div class="col-lg-3">
-           <br>
+          <table>
+            <thead>
+              <tr>
+                <th>商品名</th>
+                <th>値段</th>
+                <th>数量</th>
+              </tr>
+            </thead>
+              <tbody>
+                <% @order.order_histories.each do |history| %>
+                  <tr>
+                    <td><%= history.item.title %></td>
+                    <td><%= history.item.price %></td>
+                    <td><%= history.quantity %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </thead>
+          </table>
+
+          <h3>小計</h3>
+          <%= @order.item_amount %>
+
+            
+
+
   			<div class="actions">
     		<%= f.submit '注文を確定する' %>
     		<% end %>

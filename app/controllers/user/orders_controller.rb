@@ -1,13 +1,13 @@
 class User::OrdersController < ApplicationController
  
   def new
-    session[:order] ||= {}
     @order = current_user.orders.build
     @order.set_attribute
   end
 
   def create
     @order = current_user.orders.build
+    @order.set_attribute
     @order.assign_attributes(post_params)
     @order.new_order
     session[:order] = nil
@@ -27,7 +27,8 @@ class User::OrdersController < ApplicationController
   private
   def post_params
     params.require(:order).permit(
-        :address, :delivery_date, :payment_method, :total_price, :user_id, :item_amount, :cart_session_id
+        :address, :delivery_date, :payment_method, :total_price, :user_id, :item_amount,
+        order_histories_attributes: [:item_id, :quatity, :price]
     )
   end
 

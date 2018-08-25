@@ -1,5 +1,6 @@
 <h1>カートの中身</h1>
 <div class="container">
+	<p>合計 <%= Cart.current_quantity(current_user) %>点 :<%= Cart.current_amount(current_user) %>円</p>
 	<%= link_to "レジに進む", new_user_order_path %>
 	<table class="table table-bordered table-sm table-hover">
 	  <thead>
