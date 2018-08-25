@@ -1,37 +1,34 @@
-class User::ordersController < ApplicationController
-	def new
-    @cart = current_cart
-      if @cart.cart_items.empty?
-        redirect_to user_items_path, notice: 'カートは空です。'
-      return
-      end
+class User::OrdersController < ApplicationController
+ 
+  def new
+    session[:order] ||= {}
+    @order = current_user.orders.build
+    @order.set_attribute
+  end
 
-    @order = Order.new
+  def create
+    @order = current_user.orders.build
+    @order.assign_attributes(post_params)
+    @order.new_order
+    session[:order] = nil
+    redirect_to user_order_complete_path(@order)
+  end
 
-	end
-
- def create
-    @order = Order.new(order_params)
-    @order.add_items(current_cart)
-
-
-      if @order.save
-        Cart.destroy(session[:cart_id])
-        session[:cart_id] = nil
-        redirect_to user_order(order.id) , notice: 'ご注文ありがとうございました。'
-      end
+  def complete
+    if params[:cart_session_id]
+      @order = Order.find_by(cart_session_id: params[:cart_session_id])
+      raise ActiveRecord::RecordNotFound if @order.nil?
+    else
+      @order = current_user.orders.find_by(id: params[:id])
     end
+    render :complete
   end
 
-
-private
-  	def order_params
-  		params.require(:order).permit(:adress, :payment_method)
- 	  end
-
-    def add_items(cart)
-      cart.cart_items.each do |item|
-      item.cart_id = nil
-      cart_items << item
-      end
+  private
+  def post_params
+    params.require(:order).permit(
+        :address, :delivery_date, :payment_method, :total_price, :user_id, :item_amount, :cart_session_id
+    )
   end
+
+end

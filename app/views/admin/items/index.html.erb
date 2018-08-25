@@ -79,6 +79,7 @@
 	        <th colspan=2 style="width: 35%">商品名</th>
 	        <th style="{width:10%">ステータス</th>
 	        <th class="text-right" style="width: 10%" >価格</th>
+	        <th class="text-right" style="width: 10%" >販売数</th>
 	        <th class="text-right" style="width: 10%" >在庫数</th>
 	        <th style="{width: 10%"></th>
 	      </tr>
@@ -91,6 +92,7 @@
 	          <td><%= item.title %></td>
 	          <td><%= item.status %></td>
 	          <td class="text-right"><%= item.price %></td>
+	          <td class="text-right"><%= item.sales_quantity %></td>
 	          <td class="text-right"><%= item.stock %></td>
 	          <td>
 	            <%= link_to '編集', edit_admin_item_path(item) %>

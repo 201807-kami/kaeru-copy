@@ -1,0 +1,23 @@
+<h1>購入履歴</h1>
+<div class="container">
+	<table class="table table-bordered table-sm table-hover">
+	  <thead>
+	    <tr class="table-secondary">
+	      <th>ID</th>
+	      <th>購入日</th>
+	      <th>メールアドレス</th>
+	      <th>購入価格</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @orders.each do |order| %>
+	      <tr>
+	        <td><%= order.id %></td>
+	        <td><%= order.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+	        <td><%= order.user.email %></td>
+	        <td><%= order.item_amount %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>

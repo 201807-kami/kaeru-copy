@@ -19,7 +19,7 @@
 	    <tbody>
 	      <% @items.each do |item| %>
 	        <tr>
-	          <td><%= attachment_image_tag item, :item_image, :fill, 100, 100, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.jpg", size:"100x100" %></td>
+	          <td></td>
 	          <td><%= item.title %></td>
 	          <td>¥<%= item.price %></td>
 	          <td><%= item.artist.name %></td>

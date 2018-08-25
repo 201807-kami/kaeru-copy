@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 		resources :genres
 		resources :users, only: [:index, :show, :edit, :update]
 		resources :recommended_items
+		resources :orders, only: [:index]
 	end
 
     root to: 'user/users#top'
@@ -32,20 +33,16 @@ Rails.application.routes.draw do
 		resources :items, only: [:index, :show] do
 			resources :cart_items, only: [:create, :update, :destroy]
 		end
-		get '/user/carts/create/:id' => 'carts#create', as: 'cart_item_create'
 
 		resources :artists, only: [:index, :show]
 		resources :genres, only: [:index, :show]
 		resources :favorites, only: [:index, :destroy]
-		resources :carts, only: [:show, :update, :destroy]
-        resources :order, only: [:show, :new]
+		resources :carts, only: [:index, :create, :show, :update, :destroy]
+    resources :orders, only: [:new, :create] do
+    	 get :complete
+    end
 
-        post '/purchase_complete' => 'order#purchase_complete'
-        # post '/create' => 'cart_items#create'
-
-        #get '/add_item' => 'carts#show'
-        post '/update' => 'carts#update'
-  		delete '/delete' => 'carts#delete'
+    
 
     end
   		get '/user/leave' => 'user/leaves#index', as: 'user_leave'

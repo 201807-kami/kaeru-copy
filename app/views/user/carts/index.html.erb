@@ -1,0 +1,24 @@
+<h1>カートの中身</h1>
+<div class="container">
+	<%= link_to "レジに進む", new_user_order_path %>
+	<table class="table table-bordered table-sm table-hover">
+	  <thead>
+	    <tr class="table-secondary">
+	      <th class="text-right" style="width: 5%">商品</th>
+	      <th style="width:10%}">数量</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @carts.each do |cart| %>
+	      <tr>
+	        <td><%= cart.item.title %></td>
+	        <td><%= form_for cart, url: user_cart_path(cart), class: 'form-inline' do |f| %>
+	        	  <%= f.select :quantity, options_for_select(1..10, selected: cart.quantity)%>
+	        	  <% end %>
+	        </td>
+	        <td><%= link_to "削除", user_cart_path(cart), method: :delete %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>

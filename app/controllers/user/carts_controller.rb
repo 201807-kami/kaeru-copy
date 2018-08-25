@@ -1,63 +1,52 @@
 class User::CartsController < ApplicationController
-	 before_action  only: [:update, :delete]
+  
+  before_action :find_cart, only: [:update, :destroy]
 
+  def index
+    @carts = current_user.carts
+  end
 
-	def create
-    @cart = Cart.find_by(user_id: current_user)
-		item = Item.find(params[:id])
-		#@cart_item = @cart.add_item(item.id)
-		@cart_items = @cart.cart_items
-    if CartItem.exists?(item_id: item.id)
-      @cart_item = CartItem.where(item_id: item.id)
-            binding.pry
-      @cart_item.quantity += 1
-      @cart_item.update
-      redirect_to user_items_path, notice: 'カートに商品が追加されました。'
+  def create
+    if Cart.add_item(params[:item_id], current_user)
+
+      redirect_to user_carts_path(current_user)
     else
-      @cart_item = CartItem.new(cart_id: @cart.id,item_id: item.id, quantity: 1)
-      if @cart_item.save
-         redirect_to user_items_path, notice: 'カートに商品が追加されました。'
-      else
-         redirect_to user_item_path(item.id)
-      end
+      flash[:error] = 'カートに商品を追加することができませんでした。'
+      redirect_to user_item_path(id: params[:item_id])
     end
   end
 
+  def update
+    if @cart.update_quantity(params[:cart][:quantity].to_i)
+      flash[:success] = "#{@cart.item.name} の数量を変更しました。"
+    else
+      flash[:error] = '数量を変更することができません。'
+    end
+
+    redirect_to carts_path
+  end
+
+  def destroy
+    @cart.destroy!
+    redirect_to action: :index
+  end
+
+  private
 
 
-  	def show
-      	@cart = Cart.find(params[:id])
-      	@cart_items = CartItem.where(cart_id: @cart.id)
-  		#@carts = current_cart
-  		#@item = item.find(params[:item_id])
-		#@cart_item = @cart.cart_items.
+  def cart_session_id
+    if session[:cart_session_id].blank?
+      session[:cart_session_id] = SecureRandom.uuid
+    end
+    session[:cart_session_id]
+  end
 
-    	# @cart_item.quantity += params[:quantity].to_i
-    	@cart.cart_items.each do |cart_item|
-    	@price += cart_item.item.price*cart_item.quantity
-  	end
-
-  	def update
-   	 	#@cart_item.update(quantity: params[:quantity].to_i)
-    	#redirect_to current_cart
-  	end
-
-  	def destroy
-    	@cart = current_cart
-   	 	@cart.destroy
-    	session[:cart_id] = nil
-      	redirect_to user_items_path, notice: 'カートが空になりました。'
-    	end
-  	end
-
- private
-
-  	#def setup_cart_item!
-   	 	#@cart_item = current_cart.cart_items.find_by(item_id: params[:item_id])
-  	#end
- 	def cart_params
-  		params.require(:cart).permit(:cart_item_id, :user_id,)
-  	end
+  def find_cart
+    if user_signed_in?
+      @cart = current_user.carts.find(params[:id])
+    else
+      @cart = Cart.find_by(user: nil, session_id: cart_session_id)
+      raise ActiveRecord::RecordNotFound if @cart.nil?
+    end
+  end
 end
-
-

@@ -16,29 +16,12 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_cart
 
-  def current_cart
-    if session[:cart_id]
-      @cart = Cart.find(session[:cart_id])
-    else
-      @cart = Cart.create
-      session[:cart_id] = @cart.id
-    end
-  end
+  
 
   def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :tel, :first_name_furigana, :last_name_furigana, :zip, :address, :email])
   end
 
-  	#private
-		#def current_cart
-
-		#Cart.find(session[:cart_id])
-
-		#rescue ActiveRecord::RecordNotFound
-			#cart = Cart.create
-			#session[:cart_id] = cart.id
-			#cart
-   		 #end
-
+  	
 
 end

@@ -4,13 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-        # belongs_to :cart
-        has_many :items
-        belongs_to :cart
+        
+  
 
 
   has_many :favorites
-  has_many :items, through: :favorites
+  has_many :carts
+  has_many :orders
+  
 
   validates :first_name, presence: true
   validates :first_name_furigana, presence: true

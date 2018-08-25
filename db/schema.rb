@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_21_070037) do
+ActiveRecord::Schema.define(version: 2018_08_23_080118) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -51,12 +51,16 @@ ActiveRecord::Schema.define(version: 2018_08_21_070037) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 1
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.index ["item_id"], name: "index_cart_items_on_item_id"
   end
 
   create_table "carts", force: :cascade do |t|
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "item_id"
+    t.integer "quantity", default: 0
   end
 
   create_table "disc_songs", force: :cascade do |t|
@@ -110,8 +114,17 @@ ActiveRecord::Schema.define(version: 2018_08_21_070037) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_histories", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "item_id"
+    t.string "item_title"
+    t.integer "price"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "orders", force: :cascade do |t|
-    t.integer "cart_id"
     t.string "address"
     t.date "delivery_date"
     t.string "payment_method"
@@ -119,13 +132,9 @@ ActiveRecord::Schema.define(version: 2018_08_21_070037) do
     t.string "status", default: "受付中"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "recommended_items", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "place_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "item_amount"
+    t.string "cart_session_id"
   end
 
   create_table "songs", force: :cascade do |t|
